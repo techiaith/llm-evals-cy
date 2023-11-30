@@ -1,0 +1,9 @@
+welsh-grammar:
+    id: welsh-grammar.dev.v0
+    description: Test the model's ability to recognize grammar error in Welsh texts
+    metrics: [accuracy]
+
+welsh-grammar.dev.v0:
+    class: evals.elsuite.basic.match:Match
+    args:
+        samples_jsonl: welsh-grammar/samples.jsonl

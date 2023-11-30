@@ -1,0 +1,9 @@
+welsh-lexicon:
+    id: welsh-lexicon.dev.v0
+    description: Test the model's ability to distinguish between existing Welsh words.
+    metrics: [accuracy]
+
+welsh-lexicon.dev.v0:
+    class: evals.elsuite.basic.match:Match
+    args:
+        samples_jsonl: welsh-lexicon/samples.jsonl

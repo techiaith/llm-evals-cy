@@ -1,0 +1,9 @@
+welsh-bilingual-placenames:
+    id: welsh-bilingual-placenames.dev.v0
+    description: Test the model's ability to recognize Welsh placenames bilingually
+    metrics: [accuracy]
+
+welsh-bilingual-placenames.dev.v0:
+    class: evals.elsuite.basic.match:Match
+    args:
+        samples_jsonl: welsh-bilingual-placenames/samples.jsonl

@@ -1,0 +1,9 @@
+welsh-legislation-translation:
+  id: welsh-legislation-translation.dev.v0
+  metrics: [sacrebleu_score]
+  description: Evaluate the model's ability translate between English and Welsh in the domain of legislation
+
+welsh-legislation-translation.dev.v0:
+  class: evals.elsuite.translate:Translate
+  args:
+    samples_jsonl: welsh-legislation-translation/samples.jsonl
