@@ -65,5 +65,5 @@ make eval MODEL=gpt-4o EVAL=welsh-lexicon
 | `welsh-obscenities` | accuracy | Adnabod rhegfeydd Cymraeg |
 | `welsh-bilingual-placenames` | accuracy | Cyfieithu enwau lleoedd |
 | `welsh-legislation-translation` | BLEU | Cyfieithu deddfwriaeth Saesneg-Cymraeg |
-| 'welsh-mmlu-lite' | accuracy | Ateb cwestiynau aml-ddewis yn Gymraeg |
-| 'welsh-registers' | accuracy | Cyweiriau Cymraeg |
+| `welsh-mmlu-lite` | accuracy | Ateb cwestiynau aml-ddewis yn Gymraeg |
+| `welsh-registers` | accuracy | Cyweiriau Cymraeg |
