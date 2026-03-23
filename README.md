@@ -1,27 +1,99 @@
-# llm evals cy
+# llm evals
 
-## Cychwyn arni...
+Pecyn gwerthuso (evaluation suite) ar gyfer profi gallu modelau iaith mawr (LLMs) yn y Gymraeg. Yn defnyddio [DeepEval](https://deepeval.com/) gyda [LiteLLM](https://docs.litellm.ai/) er mwyn cefnogi unrhyw ddarparwr modelau (OpenAI, Anthropic, Ollama, ac ati).
 
-I ddefnyddio'r evals Cymraeg eich hunain, addaswch y sgript `copy_eval_files.sh` gyda lleoliad eich gosodiad o OpenAI evals cyn ei redeg. 
+# Cychwyn arni
 
-Yna defnyddiwch OpenAI evals yn y ddull arferfol. 
+## 1. Sefydlu gweinydd Ollama (ar gyfer modelau agored)
 
-e.e. 
+Gweler `infra/ollama/README.md` am gyfarwyddiadau llawn. Yn fyr:
 
-`$ oaieval gpt-4 welsh-yes-no`
+```bash
+# Ar eich gweinydd Linux gyda GPU:
+cd infra/ollama
+make up           # Cychwyn Ollama
+make pull         # Lawrlwytho llama3 (8B) + llama3.2:1b
+make test         # Prawf cyflym
+```
+
+## 2. Profi'r pipeline gyda llama3
+
+Sicrhau bod `openai.env` yn cynnwys:
+
+```
+OLLAMA_API_BASE=http://ollama:11434
+```
+
+Adeiladu'r ddelwedd Docker a rhedeg prawf bach i wirio bod popeth yn gweithio:
+
+```bash
+make eval MODEL=ollama/llama3 EVAL=welsh-obscenities MAX_SAMPLES=10
+```
+
+Os yw hynny'n gweithio, rhedeg eval llawn:
+
+```bash
+make eval MODEL=ollama/llama3 EVAL=welsh-obscenities
+```
+
+Neu pob eval ar unwaith:
+
+```bash
+make eval MODEL=ollama/llama3
+```
+
+## 3. Defnyddio modelau eraill
+
+```bash
+# OpenAI (angen OPENAI_API_KEY yn openai.env)
+python -m deepeval_evals.run_all --model gpt-4o --eval welsh-lexicon
+
+# Anthropic (angen ANTHROPIC_API_KEY yn openai.env)
+python -m deepeval_evals.run_all --model anthropic/claude-sonnet-4-20250514 --eval welsh-lexicon
+
+# Neu trwy Docker
+make eval MODEL=gpt-4o EVAL=welsh-lexicon
+```
+
+## Yr evals sydd ar gael
+
+| Eval | Metrig | Disgrifiad |
+|------|--------|------------|
+| `welsh-lexicon` | accuracy | Adnabod geiriau Cymraeg |
+| `welsh-grammar` | accuracy | Gramadeg Cymraeg |
+| `welsh-yes-no` | accuracy | Ateb cwestiynau ie/na yn Gymraeg |
+| `welsh-obscenities` | accuracy | Adnabod rhegfeydd Cymraeg |
+| `welsh-bilingual-placenames` | accuracy | Cyfieithu enwau lleoedd |
+| `welsh-legislation-translation` | BLEU | Cyfieithu deddfwriaeth Saesneg-Cymraeg |
+
+## Creu evals newydd
+
+O dan y ffolder `src` gweler ffolder ar gyfer pob eval. Y prif ffeil cod Python yw `create_eval.py` sydd yn cynhyrchu data JSONL o ba bynnag ffynhonnell.
+
+Er enghraifft mae `src/welsh-lexicon/create_eval.py` yn estyn lecsicon_cc0 a rhestr o'r geiriau mwyaf aml y Gymraeg o GitHub ac yn dewis samplau random.
+
+```bash
+make create
+# Yn y container:
+cd /app/src/welsh-lexicon/
+python3 create_eval.py
+```
+
+Yna ychwanegu cofnod yn `deepeval_evals/run_all.py` a ffeil brawf yn `deepeval_evals/tests/`.
 
 
 
-## Getting Started
+# Adnoddau Practical MSc... 
 
-To use the Welsh evals yourself, change the `copy_eval_files.sh` with the path your cloned version of OpenAI's evals before running it. 
+Gweler..
 
-Then use OpenAI evals in the usual manner.
-
-e.g.
-
-`$ oaieval gpt-4 welsh-yes-no`
-
- 
+https://storfa.techiaith.cymru/prosesu-testun/llm-evals/-/issues/1
 
 
+Practical o'r cwrs meistr ar evals....
+
+https://colab.research.google.com/drive/1SzaA0yRYGG-EAolWDd4a29a894Mw1SKW?usp=sharing
+
+ac/neu yn ....
+
+https://storfa.techiaith.cymru/prosesu-testun/llm-evals/-/blob/main/Conversational_AI_Practical.ipynb

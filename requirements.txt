@@ -1,0 +1,9 @@
+deepeval
+litellm
+sacrebleu
+tqdm
+pandas
+tiktoken
+gensim
+unidecode
+wget

@@ -1,0 +1,4 @@
+evallogs
+__pycache__
+tmp
+*.env
