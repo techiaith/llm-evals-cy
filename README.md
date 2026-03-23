@@ -65,35 +65,5 @@ make eval MODEL=gpt-4o EVAL=welsh-lexicon
 | `welsh-obscenities` | accuracy | Adnabod rhegfeydd Cymraeg |
 | `welsh-bilingual-placenames` | accuracy | Cyfieithu enwau lleoedd |
 | `welsh-legislation-translation` | BLEU | Cyfieithu deddfwriaeth Saesneg-Cymraeg |
-
-## Creu evals newydd
-
-O dan y ffolder `src` gweler ffolder ar gyfer pob eval. Y prif ffeil cod Python yw `create_eval.py` sydd yn cynhyrchu data JSONL o ba bynnag ffynhonnell.
-
-Er enghraifft mae `src/welsh-lexicon/create_eval.py` yn estyn lecsicon_cc0 a rhestr o'r geiriau mwyaf aml y Gymraeg o GitHub ac yn dewis samplau random.
-
-```bash
-make create
-# Yn y container:
-cd /app/src/welsh-lexicon/
-python3 create_eval.py
-```
-
-Yna ychwanegu cofnod yn `deepeval_evals/run_all.py` a ffeil brawf yn `deepeval_evals/tests/`.
-
-
-
-# Adnoddau Practical MSc... 
-
-Gweler..
-
-https://storfa.techiaith.cymru/prosesu-testun/llm-evals/-/issues/1
-
-
-Practical o'r cwrs meistr ar evals....
-
-https://colab.research.google.com/drive/1SzaA0yRYGG-EAolWDd4a29a894Mw1SKW?usp=sharing
-
-ac/neu yn ....
-
-https://storfa.techiaith.cymru/prosesu-testun/llm-evals/-/blob/main/Conversational_AI_Practical.ipynb
+| 'welsh-mmlu-lite' | accuracy | Ateb cwestiynau aml-ddewis yn Gymraeg |
+| 'welsh-registers' | accuracy | Cyweiriau Cymraeg |
