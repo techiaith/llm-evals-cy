@@ -59,6 +59,10 @@ EVALS = {
         "metric": "mcq",
         "max_tokens": 10,
     },
+   "welsh-toxigen": {
+        "jsonl": "welsh-toxigen/data/welsh-toxigen/samples.jsonl",
+        "metric": "exact_match",
+    },
 }
 
 
